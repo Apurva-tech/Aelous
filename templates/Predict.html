@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>IBM_call_of_code</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="assets/css/Articale-List-With-Image-Zoom.css">
+    <link rel="stylesheet" href="assets/css/Carousel-Hero.css">
+    <link rel="stylesheet" href="assets/css/dh-row-text-image-right-responsive.css">
+    <link rel="stylesheet" href="assets/css/Features-Clean.css">
+    <link rel="stylesheet" href="assets/css/Login-Form-Dark.css">
+    <link rel="stylesheet" href="assets/css/Map-Clean.css">
+    <link rel="stylesheet" href="assets/css/Map-Location-5.css">
+    <link rel="stylesheet" href="assets/css/Navigation-with-Button.css">
+    <link rel="stylesheet" href="assets/css/Registration-Form-with-Photo.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/tc-cardhover-14.css">
+    <link rel="stylesheet" href="assets/css/TD-BS4-Simple-Contact-Form-1.css">
+    <link rel="stylesheet" href="assets/css/TD-BS4-Simple-Contact-Form.css">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css" rel="stylesheet" />
+    <style>
+        #map { 
+        height: 500px;
+    }
+        #loc{
+            text-align: center;
+        }
+    label{
+        color: #C4C3C0;
+    }
+        #pred{
+            color: #C4C3C0;
+            text-style: italic;
+            font-size: larger;
+            
+            
+        }
+        #table {text-align: center;
+            margin-left: auto;
+            margin-right: auto;}
+        
+
+
+        #future{
+            padding-right: 30px; 
+            padding-top: 20px;
+            padding-bottom: 30px;
+        }
+        </style>
+    <style>
+        .geocoder-dropdown-item {
+        padding: 5px;
+        }
+        .geocoder-dropdown-icon {
+        margin-right: 10px;
+        }
+        .geocoder-dropdown-text {
+        color: #5a3fc0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: larger;
+        }
+        a{
+            color: #C4C3C0;
+        }
+        </style>
+</head>
+
+<body style="background-image: linear-gradient(#56c6c6,#003399)">
+    <nav class="navbar navbar-light navbar-expand-md bg-light">
+        <div class="container-fluid"><a class="navbar-brand" href="Home.html"><img src="assets/img/Logo.png" style="max-width: 52px;"><strong><em>Aelous</em></strong></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div
+                class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="Home.html">Home</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="Predict.html">Future</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="Team.html">Team</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="Contact%20Us.html">Contact Us</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="Land.html" style="color: blue;">Logout</a></li>
+                </ul>
+        </div>
+        </div>
+    </nav>
+    <div style="position: initial;padding-top: 20px;">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col" id='Tex'>
+                    <h2>Wind Energy Prediction</h2>
+                    <p><strong>Turbines and the energy generated in the future</strong><br>
+                        Click on Auto-Coordinates and then Find your location from Map pointer and Voila !
+                    </br></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div id="map"></div>
+        <script>
+            // TO MAKE THE MAP APPEAR YOU MUST
+            // ADD YOUR ACCESS TOKEN FROM
+            // https://account.mapbox.com
+            mapboxgl.accessToken = 'pk.eyJ1IjoiYmhhbnVwIiwiYSI6ImNrY21rYTc0bDAyNHcycmxmaHdrYnoyNGMifQ.icgC6DKZbHW5u0sL29aqiw';
+            var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [-96, 37.8], // starting position
+            zoom: 3 // starting zoom
+            });
+            
+            
+            // Add geolocate control to the map.
+            map.addControl(
+            new mapboxgl.GeolocateControl({
+            positionOptions: {
+            enableHighAccuracy: true
+            },
+            trackUserLocation: true
+            })
+            );
+    
+        
+        </script>
+        <div>
+            <div id="loc">
+            <a href="#" onClick="getLocation(); return true;" >Auto Coordinates</a>
+            </div>
+            <form action="/predict" method="post" style="text-align: center;padding-top: 20px;">
+                <div class="row">
+                    <div class="input-field col s4">
+                        <label for="first_name"><b>Latitude</b></label>
+                        <br>
+                      <input placeholder="Latitude" name="Latitude" id="input1" type="text"  class="validate">
+                      
+                    </div>
+                    <div class="input-field col s4">
+            
+                      <label for="last_name"><b>Longitude </b></label>
+                        <br>
+                      <input id="input2" name="Longitude" placeholder="Longitude"  type="text"  class="validate">
+                      
+                    </div>
+                </div>
+                <div id='future'>
+                    <label for="cars">Choose the time:</label>
+                    <select id="rating" name="cars">
+                        <option>Select the option</option>
+                        <option value = "24">24hr</option>
+                        <option value = "48">48hr</option>
+                        <option value = "72">72hr</option>
+                        <option value = "1">1month</option>
+                        <option value = "4">4months</option>
+                    </select>
+                    <label for="next">Choose the radius:</label>
+                    <select id="rating" name="next">
+                        <option>Select the option</option>
+                        <option value = "50">50M</option>
+                        <option value = "70">70M</option>
+                        <option value = "80">80M</option>
+                        <option value = "100">100M</option>
+                    </select>
+                    <label for="name1">Choose no of turbines:</label>
+                    <select id="rating" name="name1">
+                        <option>Select the option</option>
+                        <option value = "10">10Turbines</option>
+                        <option value = "15">15Turbines</option>
+                        <option value = "20">20Turbines</option>
+                        <option value = "30">30Trubines</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary text-center" type="submit" style="text-align: center;">Predict</button>
+                <p id="demo"></p>
+            </form>
+            <div id='pred'>
+                    <br>
+                    {% for table in tables %}
+                    {{titles[loop.index]}}
+                    <table class="center">
+                    {{ table|safe }}
+                    </table>
+                    {% endfor %}</br>
+        </div>
+        <script type="text/javascript">
+            function getLocation() {
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(showPosition);
+            } else { 
+              x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+          }
+          
+          function showPosition(position) {
+            
+            document.getElementById("input1").value = + position.coords.latitude;
+            document.getElementById("input2").value = + position.coords.longitude;
+          }
+        </script>
+    </div>
+    <footer class="bg-dark text-white border-top border-info">
+        <div class="text-center position-absolute w-100 mt-4"><a href="#top"><span class="fa-stack fa-lg" style="bottom: 42px;"><i class="fa fa-circle fa-stack-2x text-dark"></i><i class="fa fa-angle-up fa-stack-1x text-white"></i></span></a></div>
+        <div class="pt-5 pb-4 bg-info text-dark">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4 text-center text-md-left pb-4">
+                        <h2 class="mb-3"><i class="fa fa-diamond"></i>&nbsp;Aelous</h2>
+                        <p class="mb-1"><i class="fa fa-map-marker fa-fw"></i>&nbsp;Royal Road - Tamarin - Mauritius</p>
+                        <p class="mb-1"><i class="fa fa-phone fa-fw"></i>&nbsp;+230 12 34 56 78</p>
+                        <p class="mb-1"><i class="fa fa-envelope fa-fw"></i>&nbsp;<a href="mailto:contact@company.com" class="text-dark">contact@company.com</a></p>
+                    </div>
+                    <div class="col-lg-4 offset-md-1 offset-xl-4 text-center text-lg-right pb-4">
+                        <h3 class="mb-0">Follow us</h3>
+                        <p class="mb-2">Subscribe to our newsletter</p>
+                        <form class="d-flex justify-content-center justify-content-lg-end">
+                            <div class="form-group w-75">
+                                <div class="input-group"><input class="form-control" type="text" required="" placeholder="Your email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,15}$" inputmode="email">
+                                    <div class="input-group-append"><button class="btn btn-dark" type="submit">Go!</button></div>
+                                </div>
+                            </div>
+                        </form>
+                        <div><a href="#" class="text-dark mx-2 mx-lg-0 ml-lg-3"><i class="fa fa-instagram fa-2x"></i></a><a href="#" class="text-dark mx-2 mx-lg-0 ml-lg-3"><i class="fa fa-twitter fa-2x"></i></a><a href="#" class="text-dark mx-2 mx-lg-0 ml-lg-3"><i class="fa fa-facebook-square fa-2x"></i></a>
+                            <a
+                                href="#" class="text-dark mx-2 mx-lg-0 ml-lg-3"><i class="fa fa-snapchat-ghost fa-2x"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-lg-left py-2 small bg-dark text-info font-italic">
+            <div class="container">
+                <p class="m-0">© 2020 Aelous ~ All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/Location.js"></script>
+    <script src="assets/js/Map-Location-5.js"></script>
+    <script src="assets/js/mapid.js"></script>
+</body>
+
+</html>

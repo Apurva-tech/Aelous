@@ -1,0 +1,4 @@
+---
+applications:
+ - name: Aelous-Map
+   memory: 250M
